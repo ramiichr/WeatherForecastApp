@@ -1,0 +1,354 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Weather animations */
+.clouds-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.clouds-animation:before,
+.clouds-animation:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' fill='%23fff' fill-opacity='0.3'%3E%3Cpath d='M0,948.9c0,0,180.2-127.1,324.1-120.1c143.9,7,341.6,137.1,341.6,137.1s142.9-93.1,207.3-93.1c64.4,0,127.1,93.1,127.1,93.1V1000H0V948.9z'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' fill='%23fff' fill-opacity='0.2'%3E%3Cpath d='M0,851.9c0,0,271.2-152.1,500.1-100.1c228.9,52,499.9,162.1,499.9,162.1V1000H0V851.9z'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  animation: cloudAnimation 60s linear infinite;
+}
+
+.clouds-animation:after {
+  background-position: 100px 100%;
+  animation-duration: 90s;
+  opacity: 0.5;
+}
+
+@keyframes cloudAnimation {
+  0% {
+    background-position: 0 100%;
+  }
+  100% {
+    background-position: 1000px 100%;
+  }
+}
+
+/* Rain animation */
+.rain-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.rain-animation:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 100%);
+  background-size: 20px 100%;
+  animation: rainAnimation 0.5s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes rainAnimation {
+  0% {
+    background-position: 0 -100%;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+/* Snow animation */
+.snow-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.snow-animation:before,
+.snow-animation:after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: 0;
+  right: 0;
+  height: 120%;
+  background-image: radial-gradient(4px 4px at 100px 50px, #fff 100%, transparent),
+    radial-gradient(6px 6px at 200px 150px, #fff 100%, transparent),
+    radial-gradient(3px 3px at 300px 250px, #fff 100%, transparent),
+    radial-gradient(4px 4px at 400px 350px, #fff 100%, transparent),
+    radial-gradient(6px 6px at 500px 100px, #fff 100%, transparent),
+    radial-gradient(3px 3px at 50px 200px, #fff 100%, transparent),
+    radial-gradient(4px 4px at 150px 300px, #fff 100%, transparent),
+    radial-gradient(6px 6px at 250px 400px, #fff 100%, transparent),
+    radial-gradient(3px 3px at 350px 500px, #fff 100%, transparent);
+  background-size: 650px 650px;
+  animation: snowAnimation 3s linear infinite;
+  opacity: 0.5;
+}
+
+.snow-animation:after {
+  background-size: 500px 500px;
+  animation-duration: 6s;
+  opacity: 0.3;
+}
+
+@keyframes snowAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(650px);
+  }
+}
+
+/* Fog animation */
+.fog-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.fog-animation:before,
+.fog-animation:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' fill='%23fff' fill-opacity='0.3'%3E%3Cpath d='M0,806.3c0,0,216.3-91.6,452.8-36.8c236.5,54.8,547.2,143.2,547.2,143.2V1000H0V806.3z'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' fill='%23fff' fill-opacity='0.2'%3E%3Cpath d='M0,893.2c0,0,301.5-99.1,500-99.1s500,99.1,500,99.1V1000H0V893.2z'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  animation: fogAnimation 60s linear infinite;
+}
+
+.fog-animation:after {
+  background-position: 100px 100%;
+  animation-duration: 30s;
+  opacity: 0.5;
+}
+
+@keyframes fogAnimation {
+  0% {
+    background-position: 0 100%;
+  }
+  100% {
+    background-position: 1000px 100%;
+  }
+}
+
+/* Lightning animation */
+.lightning-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.lightning-animation:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0);
+  animation: lightningAnimation 10s linear infinite;
+}
+
+@keyframes lightningAnimation {
+  0%,
+  95%,
+  98% {
+    background-color: rgba(255, 255, 255, 0);
+  }
+  96%,
+  99% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  97%,
+  100% {
+    background-color: rgba(255, 255, 255, 0);
+  }
+}
+
+/* Stars animation */
+.stars-small,
+.stars-medium,
+.stars-large {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.stars-small:before,
+.stars-medium:before,
+.stars-large:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(1px 1px at 100px 50px, #fff 100%, transparent),
+    radial-gradient(1px 1px at 200px 150px, #fff 100%, transparent),
+    radial-gradient(1px 1px at 300px 250px, #fff 100%, transparent),
+    radial-gradient(1px 1px at 400px 350px, #fff 100%, transparent),
+    radial-gradient(1px 1px at 500px 100px, #fff 100%, transparent),
+    radial-gradient(1px 1px at 50px 200px, #fff 100%, transparent),
+    radial-gradient(1px 1px at 150px 300px, #fff 100%, transparent),
+    radial-gradient(1px 1px at 250px 400px, #fff 100%, transparent),
+    radial-gradient(1px 1px at 350px 500px, #fff 100%, transparent);
+  background-size: 500px 500px;
+  opacity: 0.5;
+  animation: twinkleAnimation 4s linear infinite;
+}
+
+.stars-medium:before {
+  background-image: radial-gradient(2px 2px at 150px 150px, #fff 100%, transparent),
+    radial-gradient(2px 2px at 250px 250px, #fff 100%, transparent),
+    radial-gradient(2px 2px at 350px 350px, #fff 100%, transparent),
+    radial-gradient(2px 2px at 450px 450px, #fff 100%, transparent);
+  background-size: 600px 600px;
+  opacity: 0.4;
+  animation: twinkleAnimation 6s linear infinite;
+}
+
+.stars-large:before {
+  background-image: radial-gradient(3px 3px at 200px 200px, #fff 100%, transparent),
+    radial-gradient(3px 3px at 400px 400px, #fff 100%, transparent),
+    radial-gradient(3px 3px at 600px 600px, #fff 100%, transparent);
+  background-size: 800px 800px;
+  opacity: 0.3;
+  animation: twinkleAnimation 8s linear infinite;
+}
+
+@keyframes twinkleAnimation {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
